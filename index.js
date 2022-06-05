@@ -1,10 +1,9 @@
 require('dotenv').config()
 const cors = require('cors');
 const express =require('express');
-
 const mongoose = require('mongoose');
 const mongodbconn = process.env.DATABASE_URL;
-
+const port = process.env.PORT || 3000
 mongoose.connect(mongodbconn);
 const database = mongoose.connection;
 
@@ -35,6 +34,6 @@ app.use('/api', routes)
 // app.listen(3001,()=>{
 //   console.log(`App started at ${3001}`)
 // })
-app.listen(process.env.PORT || 3000, function(){
+app.listen(port, function(){
   console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });

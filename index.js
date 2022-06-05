@@ -12,16 +12,29 @@ database.on('error',()=>{
     console.log('something went wrong')
 })
 database.once('connected',()=>{
+
+
     console.log('database connected')
 })
 const app = express();
-app.use(cors())
+app.use(
+  cors({
+      credentials: true,
+      origin: true
+  })
+);
+app.options('*', cors());
+
+// app.use(cors())
 app.use(express.json())
 
 const routes = require('./Routes/route');
 
 app.use('/api', routes)
 
-app.listen(3001,()=>{
-  console.log(`App started at ${3001}`)
-})
+// app.listen(3001,()=>{
+//   console.log(`App started at ${3001}`)
+// })
+app.listen(process.env.PORT || 3000, function(){
+  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+});
